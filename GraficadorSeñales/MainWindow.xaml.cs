@@ -133,42 +133,133 @@ namespace GraficadorSeñales
                         (scrContenedor_Resultado.Height / 2)));
                 }
 
+                int indiceMinimoFrecuenciasBajas = 0;
+                int indiceMaximoFrecuenciasBajas = 0;
+                int indiceMinimoFrecuenciasAltas = 0;
+                int indiceMaximoFrecuenciasAltas = 0;
+
+                indiceMinimoFrecuenciasBajas = 680 * transformada.Muestras.Count / (int)señal.FrecuenciaMuestreo;
+                indiceMaximoFrecuenciasBajas = 1000 * transformada.Muestras.Count / (int)señal.FrecuenciaMuestreo;
+                indiceMinimoFrecuenciasAltas = 1200 * transformada.Muestras.Count / (int)señal.FrecuenciaMuestreo;
+                indiceMaximoFrecuenciasAltas = 1500 * transformada.Muestras.Count / (int)señal.FrecuenciaMuestreo;
+
                 double valorMaximo = 0;
                 int indiceMaximo = 0;
-                int indiceActul = 0;
+                int indiceActual = 0;
 
-                foreach(Muestra muestra in transformada.Muestras)
+                double valorMaximo2 = 0;
+                int indiceMaximo2 = 0;
+                int indiceActual2 = 0;
+
+
+                for (indiceActual2 = indiceMinimoFrecuenciasAltas; indiceActual2 < indiceMaximoFrecuenciasAltas; indiceActual2++)
                 {
-                    if(muestra.Y > valorMaximo)
+                    if (transformada.Muestras[indiceActual2].Y > valorMaximo2)
                     {
-                        valorMaximo = muestra.Y;
-                        indiceMaximo = indiceActul;
+                        valorMaximo2 = transformada.Muestras[indiceActual2].Y;
+                        indiceMaximo2 = indiceActual2;
+
                     }
-                    indiceActul++;
-                    if (indiceActul > (double)transformada.Muestras.Count / 2.0)
-                        break;
+
                 }
 
 
-                double frecuenciaFundamental =
-               (double)indiceMaximo * señal.FrecuenciaMuestreo / (double)transformada.Muestras.Count;
+
+                for (indiceActual = indiceMinimoFrecuenciasBajas; indiceActual < indiceMaximoFrecuenciasBajas; indiceActual++)
+                {
+                    if (transformada.Muestras[indiceActual].Y > valorMaximo)
+                    {
+                        valorMaximo = transformada.Muestras[indiceActual].Y;
+                        indiceMaximo = indiceActual;
+
+                    }
+
+                }
 
 
 
-                int IndiceMinimo1 = 
-                (int)(600.0 * (double)transformada.Muestras.Count / señal.FrecuenciaMuestreo);
+
+                double frecuenciaFundamental = (double)indiceMaximo * señal.FrecuenciaMuestreo / (double)transformada.Muestras.Count;
+                Hertz.Text = frecuenciaFundamental.ToString() + "Hz";
+
+                double frecuenciaFundamental2 = (double)indiceMaximo2 * señal.FrecuenciaMuestreo / (double)transformada.Muestras.Count;
+                Hertz2.Text = frecuenciaFundamental2.ToString() + "Hz";
 
 
-                int IndiceMaximo1 =
-                (int)(1000.0 * (double)transformada.Muestras.Count / señal.FrecuenciaMuestreo);
+                if (frecuenciaFundamental >= 937 && frecuenciaFundamental <= 945)
+                {
+                    if (frecuenciaFundamental2 >= 1206 && frecuenciaFundamental2 <= 1212)
+                    {
+                        tecla.Text = "Es la tecla *";
+                    }
+
+                    if (frecuenciaFundamental2 >= 1333 && frecuenciaFundamental2 <= 1339)
+                    {
+                        tecla.Text = "Es la tecla 0";
+                    }
+                    if (frecuenciaFundamental2 >= 1444 && frecuenciaFundamental2 <= 1480)
+                    {
+                        tecla.Text = "Es la tecla #";
+                    }
+
+                }
+
+                if (frecuenciaFundamental >= 849 && frecuenciaFundamental <= 855)
+                {
+                    if (frecuenciaFundamental2 >= 1206 && frecuenciaFundamental2 <= 1212)
+                    {
+                        tecla.Text = "Es la tecla 7";
+                    }
+
+                    if (frecuenciaFundamental2 >= 1333 && frecuenciaFundamental2 <= 1339)
+                    {
+                        tecla.Text = "Es la tecla 8";
+                    }
+                    if (frecuenciaFundamental2 >= 1444 && frecuenciaFundamental2 <= 1480)
+                    {
+                        tecla.Text = "Es la tecla 9";
+                    }
+
+                }
+
+                if (frecuenciaFundamental >= 767 && frecuenciaFundamental <= 773)
+                {
+                    if (frecuenciaFundamental2 >= 1206 && frecuenciaFundamental2 <= 1212)
+                    {
+                        tecla.Text = "Es la tecla 4";
+                    }
+
+                    if (frecuenciaFundamental2 >= 1333 && frecuenciaFundamental2 <= 1339)
+                    {
+                        tecla.Text = "Es la tecla 5";
+                    }
+                    if (frecuenciaFundamental2 >= 1444 && frecuenciaFundamental2 <= 1480)
+                    {
+                        tecla.Text = "Es la tecla 6";
+                    }
+
+                }
+
+                if (frecuenciaFundamental >= 694 && frecuenciaFundamental <= 700)
+                {
+                    if (frecuenciaFundamental2 >= 1206 && frecuenciaFundamental2 <= 1212)
+                    {
+                        tecla.Text = "Es la tecla 1";
+                    }
+
+                    if (frecuenciaFundamental2 >= 1333 && frecuenciaFundamental2 <= 1339)
+                    {
+                        tecla.Text = "Es la tecla 2";
+                    }
+                    if (frecuenciaFundamental2 >= 1444 && frecuenciaFundamental2 <= 1480)
+                    {
+                        tecla.Text = "Es la tecla 3";
+                    }
+
+                }
 
 
-                int IndiceMinimo2 =
-                (int)(1200.0 * (double)transformada.Muestras.Count / señal.FrecuenciaMuestreo);
 
-
-                int IndiceMaximo2 =
-                (int)(1500.0 * (double)transformada.Muestras.Count / señal.FrecuenciaMuestreo);
 
 
 
